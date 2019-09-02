@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Timer from './components/Timer'
+
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { duration: 30 }
+  }
+
+  changeTimerDuration(duration) {
+    this.setState({ duration })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Timer duration={this.state.duration} />
+        <h2>Choose timer duration</h2>
+        {[10, 20, 30, 45, 60, 90, 120].map((dur) => {
+          return <button 
+            key={dur}
+            onClick={() => this.changeTimerDuration(dur)}
+          >{dur}</button>
+        })}
+        <p>or enter a custom duration</p>
+        <input type="text" placeholder="Enter duration"></input>
+      </div>
+    );
+  }
 }
 
 export default App;
